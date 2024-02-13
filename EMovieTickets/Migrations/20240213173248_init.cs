@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EMovieTickets.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,22 +15,22 @@ namespace EMovieTickets.Migrations
                 name: "Actors",
                 columns: table => new
                 {
-                    ActorId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProfilePictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfilePictureURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Bio = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Actors", x => x.ActorId);
+                    table.PrimaryKey("PK_Actors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Cinemas",
                 columns: table => new
                 {
-                    CinemaId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Logo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -38,34 +38,34 @@ namespace EMovieTickets.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cinemas", x => x.CinemaId);
+                    table.PrimaryKey("PK_Cinemas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Producers",
                 columns: table => new
                 {
-                    ProducerId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProfilePictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfilePictureURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Bio = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Producers", x => x.ProducerId);
+                    table.PrimaryKey("PK_Producers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Movies",
                 columns: table => new
                 {
-                    MovieId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     MovieCategory = table.Column<int>(type: "int", nullable: false),
@@ -74,18 +74,18 @@ namespace EMovieTickets.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Movies", x => x.MovieId);
+                    table.PrimaryKey("PK_Movies", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Movies_Cinemas_CinemaId",
                         column: x => x.CinemaId,
                         principalTable: "Cinemas",
-                        principalColumn: "CinemaId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Movies_Producers_ProducerId",
                         column: x => x.ProducerId,
                         principalTable: "Producers",
-                        principalColumn: "ProducerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -103,13 +103,13 @@ namespace EMovieTickets.Migrations
                         name: "FK_Actors_Movies_Actors_ActorId",
                         column: x => x.ActorId,
                         principalTable: "Actors",
-                        principalColumn: "ActorId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Actors_Movies_Movies_MovieId",
                         column: x => x.MovieId,
                         principalTable: "Movies",
-                        principalColumn: "MovieId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
