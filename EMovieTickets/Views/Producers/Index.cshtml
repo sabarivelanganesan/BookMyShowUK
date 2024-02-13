@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Producer>
 
 @{
-    ViewData["Title"] = "Producer List";
+    ViewData["Title"] = "Producers List";
 }
 <div class="row">
     <div class="col-md-8 offset-md-2">
@@ -24,15 +24,15 @@
                         <td class="align-middle">@item.FullName</td>
                         <td class="align-middle">@item.Bio</td>
                         <td class="align-middle">
-                            <a class="btn btn-outline-primary">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">
                                 <i class="bi bi-pencil-square"></i>
                                 Edit
                             </a>
-                            <a class="btn btn-outline-info">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">
                                 <i class="bi bi-eye"></i>
                                 Details
                             </a>
-                            <a class="btn btn-outline-danger">
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">
                                 <i class="bi bi-trash"></i>
                                 Delete
                             </a>
@@ -42,4 +42,9 @@
             </tbody>
         </table>
     </div>
+</div>
+<div style="position: fixed; right: 25px; bottom: 25px;" class="text-white">
+    <a asp-action="Create" class="btn btn-success">
+        <i class="bi bi-plus-circle">Add New</i>
+    </a>
 </div>
