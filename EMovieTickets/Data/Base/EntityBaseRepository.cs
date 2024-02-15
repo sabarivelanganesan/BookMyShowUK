@@ -2,6 +2,7 @@
 using EMovieTickets.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Linq.Expressions;
 
 namespace EMovieTickets.Data.Base
 {
@@ -13,6 +14,7 @@ namespace EMovieTickets.Data.Base
         {
             _context = context;
         }
+
         public async Task AddAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
@@ -38,6 +40,14 @@ namespace EMovieTickets.Data.Base
             entityEntry.State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
+        }
+
+        // Needed to check about this code
+        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            query = includeProperties.Aggregate(query, (current, includeProperties) => current.Include(includeProperties));
+            return await query.ToListAsync();
         }
     }
 }
