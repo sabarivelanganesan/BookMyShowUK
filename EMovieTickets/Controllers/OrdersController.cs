@@ -2,6 +2,7 @@
 using EMovieTickets.Data.Services;
 using EMovieTickets.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EMovieTickets.Controllers
 {
@@ -9,10 +10,20 @@ namespace EMovieTickets.Controllers
     {
         private readonly IMoviesService _movieService;
         private readonly ShoppingCart _shoppingCart;
-        public OrdersController(IMoviesService movieService, ShoppingCart shoppingCart)
+        private readonly IOrdersServices _ordersService;
+        public OrdersController(IMoviesService movieService, ShoppingCart shoppingCart, IOrdersServices ordersService)
         {
             _movieService = movieService;
             _shoppingCart = shoppingCart;
+            _ordersService = ordersService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            string userId = "";
+            var orders = await _ordersService.GetOrdersByUserIdAsync(userId);
+
+            return View(orders);
         }
         public IActionResult ShoppingCart()
         {
@@ -43,6 +54,17 @@ namespace EMovieTickets.Controllers
                 _shoppingCart.RemoveItemFromCart(item);
             }
             return RedirectToAction(nameof(ShoppingCart));
+        }
+        public async Task<IActionResult> CompleteOrder()
+        {
+            var items = _shoppingCart.GetShoppingCartItems();
+            string userId = "";
+            string userEmailAddress = "";
+
+            await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
+            await _shoppingCart.ClearShoppingCartAsync();
+
+            return View("OrderCompleted");
         }
     }
 }
