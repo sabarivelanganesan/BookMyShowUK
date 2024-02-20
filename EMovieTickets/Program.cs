@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add all the implemented services in the application
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IActorsService, ActorsService>();
 builder.Services.AddScoped<IProducersService, ProducersService>();
@@ -49,9 +49,13 @@ app.UseAuthorization();
 
 app.UseAuthorization();
 
+//Initialize the default route.
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Movies}/{action=Index}/{id?}");
+
+//Initialise the default data in your application
 
 AppDBInitializer.Seed(app);
 AppDBInitializer.SeedUsersAndRolesAsync(app).Wait();
