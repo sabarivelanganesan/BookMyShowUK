@@ -13,3 +13,7 @@ BookMyShow is designed to simplify the process of booking movie tickets. Users c
 
 Technologies Used
 Asp.netCore MVC, Sqlserver, Azure deployment
+
+**Future Implementation**
+UI Refactors
+User Review System
