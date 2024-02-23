@@ -17,3 +17,4 @@ Asp.netCore MVC, Sqlserver, Azure deployment
 **Future Implementation**
 UI Refactors
 User Review System
+Deployment in the cloud
