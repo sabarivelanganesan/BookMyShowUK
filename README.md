@@ -15,6 +15,7 @@ Technologies Used
 Asp.netCore MVC, Sqlserver, Azure deployment
 
 **Future Implementation**
+Movie Page Revamp
 UI Refactors
 User Review System
 Deployment in the cloud
